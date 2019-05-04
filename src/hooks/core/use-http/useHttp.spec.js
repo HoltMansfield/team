@@ -43,7 +43,6 @@ const url = '/tanks'
 
 afterEach(() => {
   td.reset() // resets all test doubles
-  cleanup() // Unmounts any React trees that were mounted with renderHook
 })
 
 test('get() shows and hides overlay by default', async () => {
@@ -107,7 +106,7 @@ test('get() displays error on catch()', async () => {
   const expectedError = new Error(expectedErrorMessage)
   const messageId = 'api.getTanks.failed'
   const defaultMessage = 'An API error has occurred'
-  const dolError = {
+  const errorInstance = {
     messageId,
     defaultMessage
   }
@@ -123,7 +122,7 @@ test('get() displays error on catch()', async () => {
 
   try {
 
-    actual = await get(url, { dolError, useOverlay: false })
+    actual = await get(url, { errorInstance, useOverlay: false })
   } catch (e) {
     expect(e).toBe(expectedError)
     td.verify(handleError({

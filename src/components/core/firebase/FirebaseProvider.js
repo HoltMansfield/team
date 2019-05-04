@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import app from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/database'
-import { getConfig } from 'config/clear-text'
+import { getConfig } from 'config/secure'
 
 
 const FirebaseContext = React.createContext(null)

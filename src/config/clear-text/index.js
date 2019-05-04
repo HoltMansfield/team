@@ -3,4 +3,5 @@ const getConfig = () => {
   const { config } = require(`./${enviro}`)
   return config
 }
+
 export { getConfig }
