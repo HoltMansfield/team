@@ -15,6 +15,7 @@ import { useLanguageImporter } from 'hooks/core/use-language-importer/useLanguag
 import { App } from './App'
 import { Overlay } from 'components/core/overlay/Overlay'
 import { Spinner } from 'components/core/spinner/Spinner'
+import { FirebaseProvider } from 'components/core/firebase/FirebaseProvider'
 
 
 export function FoundationApp () {
@@ -26,8 +27,9 @@ export function FoundationApp () {
   const GlobalStyle = createGlobalStyleComponent()
 
   useEffect(() => {
+    //debugger
     initializeSentry()
-  },[])
+  })
 
   return (
     <ProvideLanguageTranslations selectedLanguage={languageState.loadedLanguage} messages={languageState.messages}>
@@ -35,14 +37,14 @@ export function FoundationApp () {
         <BrowserRouter>
           <MuiThemeProvider theme={theme}>
             <ThemeProvider theme={styledComponentsTheme}>
-              <div>
+              <FirebaseProvider>
                 <Spinner />
                 <Overlay />
                 <ToastContainer />
                 <GlobalStyle />
                 <CssBaseline />
                 <App/>
-              </div>
+              </FirebaseProvider>
             </ThemeProvider>
           </MuiThemeProvider>
         </BrowserRouter>

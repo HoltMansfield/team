@@ -8,7 +8,8 @@ import { RouteLoading } from 'components/core/routing/route-loading/RouteLoading
 import { useLoggedInUser } from 'hooks/core/use-logged-in-user/useLoggedInUser'
 import { getConfig } from 'config/secure'
 import { preloadAllRoutes } from './PreloadRoutes'
-// import { AuthorizedRoute } from './AuthorizedRoute'
+import { AuthorizedRoute } from './AuthorizedRoute'
+const CreateAccount = Loadable({ loader: () => import('./create-account/CreateAccount'), loading: RouteLoading })
 
 
 
@@ -30,6 +31,7 @@ function RouteTable () {
     <Switch>
       {/* Default Route */}
       <Route exact path="/" component={ExampleComponent} /> } />
+      <AuthorizedRoute exact path="/create-account" component={CreateAccount} />
 
       {/* 404 route must be last */}
       <Route component={NotFound} />

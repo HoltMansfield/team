@@ -1,12 +1,11 @@
 import { combineReducers } from 'redux'
-
-// reducers from this project
 import { foundation } from './foundation/foundation'
-// end of reducers from this project
+import { routeState } from './route-state/route-state'
 
 
 const rootReducer = combineReducers({
-  foundation
+  foundation,
+  routeState,
 })
 
 export { rootReducer }
