@@ -1,5 +1,6 @@
 import React from 'react'
 import Flex from 'flexbox-react'
+import Grid from '@material-ui/core/Grid'
 import { withFormik } from 'formik'
 import * as Yup from 'yup'
 import { FormikTextField } from 'components'
@@ -8,29 +9,29 @@ import { FormikTextField } from 'components'
 
 function CreateAccountFormRaw (props) {
   return (
-    <Flex flexDirection="column">
-      <Flex>
-        <FormikTextField
-          id="email"
-          label="Email"
-          formikProps={props}
-        />
-    </Flex>
-      <Flex>
-        <FormikTextField
-          id="password"
-          label="Password"
-          formikProps={props}
-        />
-    </Flex>
-      <Flex>
-        <FormikTextField
-          id="confirmPassword"
-          label="Confirm Password"
-          formikProps={props}
-        />
-    </Flex>
-    </Flex>
+    <Grid container spacing={0}>
+      <Grid item xs={12} lg={4}>
+          <FormikTextField
+            id="email"
+            label="Email"
+            formikProps={props}
+          />
+      </Grid>
+      <Grid item xs={12} lg={4}>
+          <FormikTextField
+            id="password"
+            label="Password"
+            formikProps={props}
+          />
+        </Grid>
+        <Grid item xs={12} lg={4}>
+          <FormikTextField
+            id="confirmPassword"
+            label="Confirm Password"
+            formikProps={props}
+          />
+      </Grid>
+    </Grid>
   )
 }
 const validationSchema = Yup.object().shape({
