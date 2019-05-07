@@ -3,6 +3,7 @@ import Flex from 'flexbox-react'
 import {useMedia} from 'use-media'
 import Grid from '@material-ui/core/Grid'
 import { RouteTable } from '../routes/RouteTable'
+import { DesktopAppBar } from './desktop-app-bar/DesktopAppBar'
 
 
 
@@ -38,8 +39,13 @@ export function App () {
   }
 
   return (
-    <Flex flexGrow={1}>
-      <RouteTable />
+    <Flex flexDirection="column" flexGrow={1}>
+      <Flex>
+        <DesktopAppBar />
+      </Flex>
+      <Flex>
+        <RouteTable />
+      </Flex>
     </Flex>
   )
 }
