@@ -1,4 +1,4 @@
-import { themeObject } from '../use-theme/theme'
+import { themeObject } from '../use-material-theme/theme'
 
 
 // take the material theme and map to something that is useable for styled-system

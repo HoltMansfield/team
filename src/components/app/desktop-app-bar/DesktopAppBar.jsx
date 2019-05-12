@@ -1,5 +1,6 @@
 import React from 'react'
 import Flex from 'flexbox-react'
+import { FormattedMessage } from 'react-intl.macro'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
@@ -18,7 +19,10 @@ export function DesktopAppBar () {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" color="inherit" >
-            News
+            <FormattedMessage
+              id="title.teamRealTime"
+              defaultMessage="Team real time"
+            />
           </Typography>
           <Button color="inherit">Login</Button>
         </Toolbar>

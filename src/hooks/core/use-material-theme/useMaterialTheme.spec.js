@@ -15,7 +15,7 @@ const materialDouble = {
 td.replace('@material-ui/core/styles', materialDouble)
 
 // always REQUIRE in module under test LAST so it gets the testdoubles
-const { useTheme } = require('./useTheme')
+const { useTheme } = require('./useMaterialTheme')
 
 afterEach(() => {
   // reset all test doubles
