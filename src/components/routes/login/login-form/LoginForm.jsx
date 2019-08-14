@@ -10,22 +10,22 @@ function LoginFormRaw (props) {
   const { values, onSubmit } = props
 
   return (
-    <Flex flexDirection="column">
+    <Flex flexDirection="column" flexGrow={1}>
       <Flex>
         <FormikTextField
           id="email"
           label="Email"
           formikProps={props}
         />
-        </Flex>
+      </Flex>
       <Flex>
         <FormikTextField
           id="password"
           label="Password"
           formikProps={props}
         />
-        </Flex>
-      <Flex>
+      </Flex>
+      <Flex marginTop="10px">
         <SubmitButton
           onSubmit={() => onSubmit(values)}
           values={values}

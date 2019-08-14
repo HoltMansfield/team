@@ -1,14 +1,12 @@
 import React, { useEffect } from 'react'
 import { useRouteState } from 'hooks/core/use-route-state/useRouteState'
 import { useFirebaseUserAdmin } from 'hooks/firebase/use-firebase-user-admin/useFirebaseUserAdmin'
-import { useLoginLogic } from './useLoginLogic'
+import { FullPageForm } from 'components'
 import { LoginForm } from './login-form/LoginForm'
-// import { } from './styled'
 
 
 export default function Login () {
-  const { routeState, setRouteState } = useRouteState()
-  const { someValue } = useLoginLogic()
+  const { setRouteState } = useRouteState()
   const { login } = useFirebaseUserAdmin()
 
   useEffect(() => {
@@ -21,6 +19,8 @@ export default function Login () {
   }
 
   return (
-    <LoginForm onSubmit={onSubmit} />
+    <FullPageForm>
+      <LoginForm onSubmit={onSubmit} />
+    </FullPageForm>
   )
 }
