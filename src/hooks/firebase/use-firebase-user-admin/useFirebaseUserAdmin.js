@@ -48,8 +48,21 @@ export const useFirebaseUserAdmin = () => {
     }
   }
 
+  const logout = async () => {
+    try {
+      const result = await auth.signOut()
+      debugger
+      return result
+    } catch (error) {
+      debugger
+      const data = { origin: 'useFirebaseUserAdmin.logout', user: auth.user }
+      handleGenericCritical({ data, error })
+    }
+  }
+
   return {
     createUser,
-    login
+    login,
+    logout
   }
 }
