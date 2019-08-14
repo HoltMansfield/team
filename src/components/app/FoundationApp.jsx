@@ -12,10 +12,11 @@ import { useMaterialTheme } from 'hooks/core/use-material-theme/useMaterialTheme
 import { useSentry } from 'hooks/core/use-sentry/useSentry'
 import { useGlobalStyle } from 'hooks/core/use-global-style/useGlobalStyle'
 import { useLanguageImporter } from 'hooks/core/use-language-importer/useLanguageImporter'
+import { useFirebaseAuthState } from 'hooks/firebase/use-firebase-auth-state/useFirebaseAuthState'
 import { App } from './App'
 import { Overlay } from 'components/core/overlay/Overlay'
 import { Spinner } from 'components/core/spinner/Spinner'
-import { FirebaseProvider } from 'components/core/firebase/FirebaseProvider'
+//import { FirebaseProvider } from 'components/core/firebase/FirebaseProvider'
 
 
 export function FoundationApp () {
@@ -24,12 +25,18 @@ export function FoundationApp () {
   const { styledComponentsTheme } = useStyledComponentsTheme()
   const { createGlobalStyleComponent } = useGlobalStyle()
   const { initializeSentry, captureException } = useSentry()
+  const { loadAuthState } = useFirebaseAuthState()
   const GlobalStyle = createGlobalStyleComponent()
 
   useEffect(() => {
     //debugger
     initializeSentry()
-  })
+    loadAuthState()
+  }, [])
+
+  // <FirebaseProvider>
+  //
+  // </FirebaseProvider>
 
   return (
     <ProvideLanguageTranslations selectedLanguage={languageState.loadedLanguage} messages={languageState.messages}>
@@ -37,14 +44,14 @@ export function FoundationApp () {
         <BrowserRouter>
           <MuiThemeProvider theme={materialTheme}>
             <ThemeProvider theme={styledComponentsTheme}>
-              <FirebaseProvider>
+              <>
                 <Spinner />
                 <Overlay />
                 <ToastContainer />
                 <GlobalStyle />
                 <CssBaseline />
                 <App/>
-              </FirebaseProvider>
+              </>
             </ThemeProvider>
           </MuiThemeProvider>
         </BrowserRouter>

@@ -3,7 +3,8 @@ import { FirebaseContext } from 'components/core/firebase/FirebaseProvider'
 
 
 export const useFirebase = () => {
-  const { app, auth, db } = useContext(FirebaseContext)
+  const x = useContext(FirebaseContext)
+  const { app, auth, db } = x || {}
 
   return {
     app, auth, db

@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import app from 'firebase/app'
 import 'firebase/auth'
-import 'firebase/database'
+import 'firebase/firestore'
 import { getConfig } from 'config/secure'
 
 
@@ -30,7 +30,7 @@ function FirebaseProvider ({ children }) {
   useEffect(() => {
     app.initializeApp(firebaseConfig)
     const auth = app.auth()
-    const db = app.database()
+    const db = app.firestore()
     setFirebase({ app, auth, db })
   },[])
 

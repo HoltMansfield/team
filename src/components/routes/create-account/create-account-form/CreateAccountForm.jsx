@@ -3,43 +3,47 @@ import Flex from 'flexbox-react'
 import Grid from '@material-ui/core/Grid'
 import { withFormik } from 'formik'
 import * as Yup from 'yup'
-import { FormikTextField } from 'components'
-import { useForms } from 'hooks/core/use-forms/useForms'
+import { FormContainer, FormikTextField, SubmitButton } from 'components'
 // import { } from './styled'
 
 
 function CreateAccountFormRaw (props) {
-  const { formIsValid } = useForms()
+  const { values } = props
 
   return (
-    <Grid container spacing={0}>
-      <Grid item xs={12} lg={4}>
-          <FormikTextField
-            id="email"
-            label="Email"
-            formikProps={props}
-          />
-      </Grid>
-      <Grid item xs={12} lg={4}>
+    <FormContainer>
+      <Grid container spacing={0}>
+        <Grid item xs={12}>
+            <FormikTextField
+              id="email"
+              label="Email"
+              formikProps={props}
+            />
+        </Grid>
+        <Grid item xs={12}>
           <FormikTextField
             id="password"
             label="Password"
             formikProps={props}
           />
         </Grid>
-        <Grid item xs={12} lg={4}>
+        <Grid item xs={12}>
           <FormikTextField
             id="confirmPassword"
             label="Confirm Password"
             formikProps={props}
           />
+        </Grid>
+        <Grid item xs={12}>
+          <SubmitButton values={values} validationSchema={validationSchema}>Save</SubmitButton>
+        </Grid>
       </Grid>
-    </Grid>
+    </FormContainer>
   )
 }
 const validationSchema = Yup.object().shape({
   email: Yup.string().required('Email is required'),
-  password: Yup.string().required('Password is required'),
+  password: Yup.string().min(6).required('Password is required'),
   confirmPassword: Yup.string().required('Confirm Password is required'),
 })
 const formikConfig = {

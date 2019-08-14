@@ -1,21 +1,14 @@
 import React from 'react'
 import Flex from 'flexbox-react'
-import {useMedia} from 'use-media'
-import Grid from '@material-ui/core/Grid'
+import { useScreenSizes } from 'hooks/core/use-screen-sizes/useScreenSizes'
 import { RouteTable } from '../routes/RouteTable'
 import { DesktopAppBar } from './desktop-app-bar/DesktopAppBar'
+import { SideMenu } from './side-menu/SideMenu'
 
 
 
 export function App () {
-  // below 1280 is device
-  const isDevice = useMedia({ maxWidth: 1279 })
-  // smallish desktop between 1280 and 1440
-  const isDesktop = useMedia({ minWidth: 1280, maxWidth: 1439 })
-  // large isDesktop is 1440 and up
-  const isLargeDesktop = useMedia({ minWidth: 1640 })
-
-  console.log(isDevice)
+  const { isDevice, isLargeDesktop } = useScreenSizes()
 
   if (isDevice) {
     return (
@@ -27,12 +20,17 @@ export function App () {
 
   if (isLargeDesktop) {
     return (
-      <Flex>
-        <Flex width="200px" style={{ backgroundColor: 'red' }}>
-          side menu
+      <Flex flexGrow={1} flexDirection="column" minHeight="100vh">
+        <Flex>
+          <DesktopAppBar />
         </Flex>
         <Flex flexGrow={1}>
-          <RouteTable />
+          <Flex width="200px">
+            <SideMenu />
+          </Flex>
+          <Flex flexGrow={1}>
+            <RouteTable />
+          </Flex>
         </Flex>
       </Flex>
     )
