@@ -1,10 +1,12 @@
 import { useFirebase } from 'hooks/firebase/use-firebase/useFirebase'
 import { useHandleError } from 'hooks/core/use-handle-error/useHandleError'
+import { useToaster } from 'hooks/core/use-toaster/useToaster'
 
 
 export const useFirebaseUserAdmin = () => {
   const { auth, db } = useFirebase()
   const { handleGenericCritical } = useHandleError()
+  const { success } = useToaster()
 
   const createUserProfile = async (createUserResult) => {
     try {
@@ -60,9 +62,22 @@ export const useFirebaseUserAdmin = () => {
     }
   }
 
+  const forgotPassword = async (email) => {
+    try {
+      const result = await auth.sendPasswordResetEmail(email)
+      success('A reset password email has been sent to your account.')
+      return result
+    } catch (error) {
+      debugger
+      const data = { origin: 'useFirebaseUserAdmin.forgotPassword', email }
+      handleGenericCritical({ data, error })
+    }
+  }
+
   return {
     createUser,
     login,
-    logout
+    logout,
+    forgotPassword
   }
 }

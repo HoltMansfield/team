@@ -9,6 +9,7 @@ import { preloadAllRoutes } from './PreloadRoutes'
 //import { AuthorizedRoute } from './AuthorizedRoute'
 const CreateAccount = Loadable({ loader: () => import('./create-account/CreateAccount'), loading: RouteLoading })
 const Login = Loadable({ loader: () => import('./login/Login'), loading: RouteLoading })
+const ForgotPassword = Loadable({ loader: () => import('./forgot-password/ForgotPassword'), loading: RouteLoading })
 
 
 function RouteTable () {
@@ -21,6 +22,7 @@ function RouteTable () {
       {/* Default Route */}
       <Route exact path="/create-account" component={CreateAccount} />
       <Route exact path="/login" component={Login} />
+      <Route exact path="/forgot-password" component={ForgotPassword} />
 
       {/* 404 route must be last */}
       <Route component={NotFound} />
