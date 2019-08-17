@@ -1,5 +1,5 @@
 module.exports = {
-  email: {
+  password: {
     type: 'string'
   }
 }

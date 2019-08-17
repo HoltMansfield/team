@@ -27,7 +27,9 @@ export const useFirebaseAuthState = () => {
 
     auth.onAuthStateChanged(authUser => {
       setLoggedInUser(authUser)
-      fetchUserProfile(authUser.uid)
+      if(authUser && authUser.uid) {
+        fetchUserProfile(authUser.uid)
+      }
     })
   }
 

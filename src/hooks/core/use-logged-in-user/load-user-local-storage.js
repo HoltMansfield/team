@@ -17,14 +17,9 @@ const setLoggedInUser = (store, newLoggedInUser) => {
 }
 
 export const loadUserFromLocalStorage = (store) => {
-  const user = localStorage.getItem('profile')
+  const user = localStorage.getItem('firebase:host:teamrealtime-c7174.firebaseio.com')
 
   if (user) {
-    if (tokenIsExpired()) {
-      setLoggedInUser(store, null)
-    } else {
-      const json = JSON.parse(user)
-      setLoggedInUser(store, json)
-    }
+    setLoggedInUser(store, user)
   }
 }

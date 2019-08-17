@@ -10,6 +10,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import { useScreenSizes } from 'hooks/core/use-screen-sizes/useScreenSizes'
+import { useRouter } from 'hooks/core/use-router/useRouter'
 import { useLoggedInUser } from 'hooks/redux/foundation/use-logged-in-user/useLoggedInUser'
 import { useFirebaseUserAdmin } from 'hooks/firebase/use-firebase-user-admin/useFirebaseUserAdmin'
 // import { } from './styled'
@@ -20,6 +21,7 @@ export function DesktopAppBar () {
   const [anchorEl, setAnchorEl] = React.useState(null)
   const { loggedInUser } = useLoggedInUser()
   const { logout } = useFirebaseUserAdmin()
+  const { history } = useRouter()
 
   const handleUserMenuClick = (event) => {
     setAnchorEl(event.currentTarget)
@@ -32,6 +34,11 @@ export function DesktopAppBar () {
   const doLogout = () => {
     closeUserMenu()
     logout()
+  }
+
+  const doChangePassword = () => {
+    closeUserMenu()
+    history.push('/change-password')
   }
 
   return (
@@ -62,6 +69,7 @@ export function DesktopAppBar () {
                 onClose={closeUserMenu}
               >
                 <MenuItem onClick={doLogout}>Logout</MenuItem>
+                <MenuItem onClick={doChangePassword}>Change Password</MenuItem>
               </Menu>
             </Flex>
           }

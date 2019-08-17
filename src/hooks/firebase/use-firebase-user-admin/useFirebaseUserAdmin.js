@@ -5,7 +5,7 @@ import { useToaster } from 'hooks/core/use-toaster/useToaster'
 
 export const useFirebaseUserAdmin = () => {
   const { auth, db } = useFirebase()
-  const { handleGenericCritical } = useHandleError()
+  const { handleGenericCritical, handleError } = useHandleError()
   const { success } = useToaster()
 
   const createUserProfile = async (createUserResult) => {
@@ -29,7 +29,6 @@ export const useFirebaseUserAdmin = () => {
     try {
       const result = await auth.createUserWithEmailAndPassword(email, password)
       const profile = await createUserProfile(result.user)
-      debugger
       return { user: result.user, profile }
     } catch (error) {
       debugger
@@ -40,11 +39,9 @@ export const useFirebaseUserAdmin = () => {
 
   const login = async (loginAttempt) => {
     try {
-      const result = await auth.signInWithEmailAndPassword(loginAttempt.email, loginAttempt.password)
-      debugger
-      return result
+      await auth.signInWithEmailAndPassword(loginAttempt.email, loginAttempt.password)
+      return true
     } catch (error) {
-      debugger
       const data = { origin: 'useFirebaseUserAdmin.login', loginAttempt }
       handleGenericCritical({ data, error })
     }
@@ -53,12 +50,15 @@ export const useFirebaseUserAdmin = () => {
   const logout = async () => {
     try {
       const result = await auth.signOut()
-      debugger
       return result
     } catch (error) {
-      debugger
       const data = { origin: 'useFirebaseUserAdmin.logout', user: auth.user }
-      handleGenericCritical({ data, error })
+      handleError({
+        data,
+        error,
+        messageId: 'api.login.failure',
+        defaultMessage: 'Email or password is incorrect'
+      })
     }
   }
 
@@ -74,10 +74,22 @@ export const useFirebaseUserAdmin = () => {
     }
   }
 
+  const changePassword = async (newPassword) => {
+    try {
+      const result = await auth.currentUser.updatePassword(newPassword)
+      success('Your password has been updated')
+      return result
+    } catch (error) {
+      const data = { origin: 'useFirebaseUserAdmin.updatePassword', newPassword }
+      handleGenericCritical({ data, error })
+    }
+  }
+
   return {
     createUser,
     login,
     logout,
-    forgotPassword
+    forgotPassword,
+    changePassword
   }
 }
